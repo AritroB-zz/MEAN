@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { AttachSession } from 'protractor/built/driverProviders';
 
 @Component({
   selector: 'app-post-create',
@@ -6,7 +7,10 @@ import { Component } from '@angular/core'
 })
 
 export class PostCreateComponent {
+  enteredValue = '';
+  newPost = 'NO CONTENT';
+
   onAddPost() {
-    alert( "Post added!");
+    this.newPost = this.enteredValue;
   }
 }
