@@ -1,5 +1,6 @@
-import { Component } from '@angular/core'
+import { Component, EventEmitter, Output } from '@angular/core'
 import { AttachSession } from 'protractor/built/driverProviders';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-post-create',
@@ -8,10 +9,15 @@ import { AttachSession } from 'protractor/built/driverProviders';
 })
 
 export class PostCreateComponent {
-  enteredValue = '';
-  newPost = 'NO CONTENT';
+  enteredTitle = '';
+  enteredContent = '';
+  @Output() postCreated = new EventEmitter();
 
   onAddPost() {
-    this.newPost = this.enteredValue;
+    const post = {
+      title: this.enteredTitle,
+      content: this.enteredContent
+    };
+    this.postCreated.emit(post);
   }
 }
