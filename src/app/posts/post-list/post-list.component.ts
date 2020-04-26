@@ -11,4 +11,5 @@ export class PostListComponent {
   //   {title: 'Second Post', content: 'This is the second post\'s content'},
   //   {title: 'Third Post', content: 'This is the third post\'s content'},
   // ];
+  posts= [];
 }
