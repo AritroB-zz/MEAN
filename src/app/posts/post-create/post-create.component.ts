@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Output } from '@angular/core'
+import { Component } from '@angular/core'
 import { AttachSession } from 'protractor/built/driverProviders';
 import { ThrowStmt } from '@angular/compiler';
 
 import { Post } from '../post.model';
 import { NgForm } from '@angular/forms';
+import { PostsService } from '../posts.service';
 
 @Component({
   selector: 'app-post-create',
@@ -14,7 +15,8 @@ import { NgForm } from '@angular/forms';
 export class PostCreateComponent {
   enteredTitle = '';
   enteredContent = '';
-  @Output() postCreated = new EventEmitter<Post>();
+
+  constructor(public postsService: PostsService) {}
 
   onAddPost(form: NgForm) {
     if(form.invalid) {
@@ -24,6 +26,6 @@ export class PostCreateComponent {
       title: form.value.title,
       content: form.value.content
     };
-    this.postCreated.emit(post);
+    this.postsService.addPosts(form.value.title, form.value.content);
   }
 }
