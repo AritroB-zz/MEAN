@@ -17,13 +17,13 @@ app.use((req, res, next) => {
 
 app.post('/api/posts', (req,res, next) => {
   const posts = req.body;
-  console.log(post);
+  console.log(posts);
   res.status(201).json({
     message: 'Post added successfully'
   });
 });
 
-app.use('/api/posts', (req, res, next) => {
+app.get('/api/posts', (req, res, next) => {
   const posts = [
     {
       id: 'asdfasd',
