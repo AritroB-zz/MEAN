@@ -1,10 +1,11 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { AttachSession } from 'protractor/built/driverProviders';
 import { ThrowStmt } from '@angular/compiler';
 
 import { Post } from '../post.model';
 import { NgForm } from '@angular/forms';
 import { PostsService } from '../posts.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-post-create',
@@ -12,11 +13,15 @@ import { PostsService } from '../posts.service';
   styleUrls: ['./post-create.component.css']
 })
 
-export class PostCreateComponent {
+export class PostCreateComponent implements OnInit{
   enteredTitle = '';
   enteredContent = '';
 
-  constructor(public postsService: PostsService) {}
+  constructor(public postsService: PostsService, public route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.route.paramMap.subscribe();
+  }
 
   onAddPost(form: NgForm) {
     if(form.invalid) {
