@@ -77,17 +77,15 @@ export class PostCreateComponent implements OnInit {
   }
 
   onSavePost() {
-    console.log("form.invalid: " + this.form.invalid);
-    //console.log("error: " + this.form.errors);
-    if (this.form.invalid) {
-      return;
+     if (this.form.invalid) {
+       return;
     }
     this.isLoading = true;
     console.log("mode: " + this.mode);
     if (this.mode === "create") {
       console.log("title: " + this.form.value.title);
       console.log("content: " + this.form.value.content);
-      this.postsService.addPosts(this.form.value.title, this.form.value.content);
+      this.postsService.addPost(this.form.value.title, this.form.value.content, this.form.value.image);
     } else {
       this.postsService.updatePost(
         this.postId,
