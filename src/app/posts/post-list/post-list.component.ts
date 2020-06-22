@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Post } from '../post.model';
 import { PostsService } from '../posts.service';
 import { PageEvent } from '@angular/material/paginator';
+import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-post-list',
@@ -37,6 +38,7 @@ export class PostListComponent implements OnInit, OnDestroy{
   }
 
   onChangedPage(pageData: PageEvent){
+    this.isLoading = true;
     this.currentPage = pageData.pageIndex + 1;
     this.postsPerPage = pageData.pageSize;
     this.postsService.getPosts(this.postsPerPage, this.currentPage);
