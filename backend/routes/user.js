@@ -10,8 +10,8 @@ router.post("/signup", (req, res, next) => {
     .then(hash => {
       const user = new User({
         email: req.body.email,
-        password: req.body.password
-      })
+        password: hash
+      });
     user.save()
       .then(result => {
         res.status(201).json({
