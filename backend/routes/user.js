@@ -9,8 +9,7 @@ const user = require("../models/user");
 const router = express.Router();
 
 router.post("/signup", (req, res, next) => {
-  bcrypt.hash(req.body.password, 10)
-    .then(hash => {
+  bcrypt.hash(req.body.password, 10).then(hash => {
       const user = new User({
         email: req.body.email,
         password: hash
@@ -39,7 +38,7 @@ router.post("/login", (req, res, next) => {
         });
       }
       fetchedUser = user;
-      return bcrypt.compare(req.body.password, user.password);
+      return bcrypt.compare(req.body.password, fetchedUser.password);
     })
     .then(result => {
       if (!result) {
