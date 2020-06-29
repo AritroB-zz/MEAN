@@ -70,8 +70,11 @@ router.put(
   );
   console.log(post);
   Post.updateOne({_id: req.params.id, creator: req.userData.userId }, post).then(result => {
-    console.log(result);
-    res.status(200).json({message: "Update successful!"});
+    if (result.nModified > 0) {
+      res.status(200).json({message: "Update successful!"});
+    } else {
+      res.status(401).json({message: "Not authorized!"});
+    }
   });
 });
 
@@ -110,9 +113,12 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.delete("/:id", checkAuth, (req, res, next) => {
-  Post.deleteOne({_id: req.params.id}).then(result => {
-    console.log(result);
-    res.status(200).json({message: "Post deleted!"});
+  Post.deleteOne({_id: req.params.id, creator: req.userData.userId }).then(result => {
+    if (result.n > 0) {
+      res.status(200).json({message: "Deletion successful!"});
+    } else {
+      res.status(401).json({message: "Not authorized!"});
+    }
   })
 });
 
