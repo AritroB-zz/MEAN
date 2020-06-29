@@ -69,7 +69,7 @@ router.put(
     }
   );
   console.log(post);
-  Post.updateOne({_id: req.params.id}, post).then(result => {
+  Post.updateOne({_id: req.params.id, creator: req.userData.userId }, post).then(result => {
     console.log(result);
     res.status(200).json({message: "Update successful!"});
   });
