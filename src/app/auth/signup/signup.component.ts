@@ -1,25 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from "@angular/router";
+import { Subscription } from 'rxjs';
 
 @Component({
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit, OnDestroy {
   isLoading = false;
+  private authStatusSub: Subscription;
 
   constructor(public authService: AuthService, private router: Router) {}
 
+  ngOnInit() {
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
+      authStatus => {
+        this.isLoading = false;
+      }
+    );
+  }
+
   onSignup(form: NgForm) {
     if (form.invalid) {
-      console.log("incorrect form");
       return;
     }
     this.isLoading = true;
-    console.log("isLoading is true");
     this.authService.createUser(form.value.email, form.value.password);
-    this.router.navigate(['/login']);
   }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
+  }
+
 }
