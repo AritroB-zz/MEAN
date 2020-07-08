@@ -1,6 +1,8 @@
 {
   "env": {
+    "MONGO_LOCATION": "mongodb+srv://aritro:",
     "MONGO_ATLAS_PW": "vws5KAQ7g8DeKyYl",
+    "MONGO_CLUSTER": "@cluster0-gqhbe.mongodb.net/node-angular",
     "JWT_KEY": "secret_this_should_be_longer"
   }
 }

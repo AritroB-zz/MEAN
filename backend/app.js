@@ -8,9 +8,8 @@ const userRoutes = require("./routes/user");
 
 const app = express();
 
-mongoose.connect("mongodb+srv://aritro:" +
-  process.env.MONGO_ATLAS_PW +
-    "@cluster0-gqhbe.mongodb.net/node-angular",
+mongoose.connect(process.env.MONGO_LOCATION +
+  process.env.MONGO_ATLAS_PW + process.env.MONGO_CLUSTER,
     { useNewUrlParser: true })
 .then(() => {
   console.log('Connected to database!');
